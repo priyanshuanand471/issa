@@ -21,7 +21,7 @@ func main() {
 	router.HandleFunc("/api/v1/telemetry", telemetryProxy).Methods("GET", "POST")
 	router.HandleFunc("/api/v1/comms", commsProxy).Methods("GET", "POST")
 
-	// Middleware
+	// Middleware	
 	router.Use(loggingMiddleware(logger))
 	router.Use(authMiddleware)
 
@@ -50,8 +50,8 @@ func loggingMiddleware(logger *zap.Logger) mux.MiddlewareFunc {
 	}
 }
 
-// Stub handler functions
-func authProxy(w http.ResponseWriter, r *http.Request) {
+
+func authProxy(w http.ResponseWriter, r *http.Request) {                   // Stub handler function
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("authProxy"))
 }
@@ -71,7 +71,7 @@ func commsProxy(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("commsProxy"))
 }
 
-// Stub auth middleware
+
 func authMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// For now, just call the next handler
