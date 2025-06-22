@@ -56,10 +56,9 @@ func main() {
 }
 
 func telemetryConsumer() {
-	// Subscribe to Redis channel for telemetry updates
 	pubsub := redisClient.Subscribe(context.Background(), "telemetry.updates")
 	defer pubsub.Close()
-
+	
 	ch := pubsub.Channel()
 
 	for msg := range ch {
