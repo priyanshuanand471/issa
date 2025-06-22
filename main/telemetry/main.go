@@ -47,8 +47,8 @@ func telemetryHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid telemetry data", http.StatusBadRequest)
 		return
 	}
+
 	
-	// Store in Redis with TTL
 	err := redisClient.SetEX(r.Context(), 
 		"telemetry:"+telemetry.AircraftID, 
 		telemetry, 
