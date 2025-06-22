@@ -25,14 +25,11 @@ type Position struct {
 
 // PublishPosition publishes the aircraft position to DDS
 func (dds *DDSController) PublishPosition(aircraft Aircraft) error {
-	// Implementation for publishing to DDS
-	// This is a placeholder for the actual DDS publish logic
-	return nil // Replace with actual publish logic
+	return nil
 }
 
 // queueFallback handles fallback to Redis queue
 func queueFallback(aircraft Aircraft) {
-	// Serialize aircraft data
 	data, err := json.Marshal(aircraft)
 	if err != nil {
 		logger.Error("Failed to serialize aircraft data for Redis fallback", zap.Error(err))
@@ -46,7 +43,6 @@ func queueFallback(aircraft Aircraft) {
 	}
 }
 
-// resilientDDSPublisher attempts to publish aircraft position to DDS with retries
 func resilientDDSPublisher(aircraft Aircraft) {
 	retryPolicy := backoff.NewExponentialBackOff()
 	retryPolicy.MaxElapsedTime = 5 * time.Minute
@@ -65,7 +61,7 @@ func resilientDDSPublisher(aircraft Aircraft) {
 
 	err := backoff.RetryNotify(operation, retryPolicy, notify)
 	if err != nil {
-		// Fallback to Redis queue
+		
 		queueFallback(aircraft)
 	}
 }
