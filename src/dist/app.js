@@ -5,7 +5,7 @@ var AircraftList_1 = require("./components/AircraftList");
 var AircraftDetail_1 = require("./components/AircraftDetail");
 var TelemetryForm_1 = require("./components/TelemetryForm");
 var CommsPanel_1 = require("./components/CommsPanel");
-// Dummy data for demonstration
+
 var dummyAircraft = {
     id: "A1",
     position: { latitude: 0, longitude: 0, altitude: 0 },
@@ -34,7 +34,7 @@ function App() {
     var _b = react_1.useState(null), selected = _b[0], setSelected = _b[1];
     var _c = react_1.useState([]), messages = _c[0], setMessages = _c[1];
     var _d = react_1.useState(true), loading = _d[0], setLoading = _d[1];
-    // Fetch aircraft list
+    
     var fetchAircraft = function () {
         setLoading(true);
         fetch("/api/v1/aircraft")
@@ -44,7 +44,7 @@ function App() {
             setLoading(false);
         });
     };
-    // Fetch comms
+    
     var fetchMessages = function () {
         fetch("/api/v1/comms")
             .then(function (res) { return res.json(); })
@@ -53,11 +53,11 @@ function App() {
     react_1.useEffect(function () {
         fetchAircraft();
         fetchMessages();
-        // Optionally, refresh every 5 seconds:
-        // const interval = setInterval(() => { fetchAircraft(); fetchMessages(); }, 5000);
-        // return () => clearInterval(interval);
+         Optionally, refresh every 5 seconds:
+        const interval = setInterval(() => { fetchAircraft(); fetchMessages(); }, 5000);
+        return () => clearInterval(interval);
     }, []);
-    // Update aircraft position
+    
     var updatePosition = function (id, pos) {
         fetch("/api/v1/aircraft/" + id, {
             method: "POST",
